@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youshe.mcp.mapper.UserMapper">
+
+    <select id="selectCountUser" resultType="String">
+        SELECT DISTINCT user_id FROM `housing`
+    </select>
+
+    <select id="selectCountBuildingUser" resultType="String" parameterType="String">
+        SELECT DISTINCT user_id FROM `housing`  where building_id = #{id}
+    </select>
+
+</mapper>
