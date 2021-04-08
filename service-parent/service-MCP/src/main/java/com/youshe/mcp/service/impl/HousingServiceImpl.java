@@ -99,9 +99,10 @@ public class HousingServiceImpl extends ServiceImpl<HousingMapper, Housing> impl
     public HousingVo findByRoomNumber(String roomNumber) {
 
         QueryWrapper<Housing> queryWrapper = new  QueryWrapper<>();
-
-        queryWrapper.eq("room_number",roomNumber);
+        //System.out.println(roomNumber);
+        queryWrapper.eq("room_number",roomNumber.trim());
         Housing housing = housingMapper.selectOne(queryWrapper);
+        //System.out.println(housing);
         if (housing == null) throw new GlobalException(ResultCode.ERROR.getCode(),"该房屋不存在!");
         User user = null;
         if( housing.getUserId()!=null )

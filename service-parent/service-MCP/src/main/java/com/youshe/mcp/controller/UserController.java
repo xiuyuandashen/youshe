@@ -28,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/mcp/user")
 @Api(tags = "用户管理")
+@CrossOrigin
 public class UserController {
 
     @Autowired

@@ -11,6 +11,8 @@
         <module>common</module>
     </modules>
     <name>youshe</name>
+<!--    因为父工程会被子模块继承所以打包的类型不是jar，也不是war而是pom -->
+<!--    <packaging>pom</packaging>-->
     <description>Demo project for Spring Boot</description>
 
     <properties>

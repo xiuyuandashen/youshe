@@ -14,7 +14,7 @@ spring:
       max-lifetime: 540000
       maximum-pool-size: 12
       minimum-idle: 10
-      pool-name: GuliHikariPool
+      pool-name: YouSheHikariPool
   #  设置返回json的统一时间格式
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

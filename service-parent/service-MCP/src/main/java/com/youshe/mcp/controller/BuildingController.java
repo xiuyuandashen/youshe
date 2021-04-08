@@ -36,6 +36,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/mcp/building")
 @Api(tags = "楼房管理")
+@CrossOrigin
 public class BuildingController {
 
 

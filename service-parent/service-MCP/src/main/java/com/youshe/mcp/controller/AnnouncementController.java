@@ -30,6 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/mcp/announcement")
 @Api(tags = "公告管理")
+@CrossOrigin
 public class AnnouncementController {
 
 
@@ -69,6 +70,14 @@ public class AnnouncementController {
         return ResultVo.ok().message("删除成功！");
     }
 
+    @ApiOperation("修改公告")
+    @PostMapping("update")
+    public ResultVo update(@RequestBody Announcement announcement){
+        //if (announcement.getId() == null) throw new GlobalException(ResultCode.ERROR.getCode(), "更新失败!");
+        boolean b = announcementService.updateById(announcement);
+        if (!b) throw new GlobalException(ResultCode.ERROR.getCode(), "修改失败!");
+        return ResultVo.ok().message("修改成功！");
+    }
 
 }
 

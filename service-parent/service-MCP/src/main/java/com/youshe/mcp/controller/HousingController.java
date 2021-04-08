@@ -31,6 +31,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/mcp/housing")
 @Api(tags = "房屋管理")
+@CrossOrigin
 public class HousingController {
 
     @Autowired
@@ -54,8 +55,8 @@ public class HousingController {
     }
 
     @ApiOperation("根据房屋单元号查找房屋信息")
-    @GetMapping("/findByRoomNumber/{roomNumber}")
-    public ResultVo findByRoomNumber(@PathVariable("roomNumber") String roomNumber ){
+    @GetMapping("/findByRoomNumber")
+    public ResultVo findByRoomNumber(@RequestParam("roomNumber") String roomNumber ){
         HousingVo housingVo = housingService.findByRoomNumber(roomNumber);
         return ResultVo.ok().data("housingVo",housingVo);
     }
