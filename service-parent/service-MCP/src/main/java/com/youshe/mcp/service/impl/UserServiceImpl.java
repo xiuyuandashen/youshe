@@ -1,5 +1,6 @@
 package com.youshe.mcp.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.youshe.mcp.entity.User;
 import com.youshe.mcp.mapper.BuildingMapper;
 import com.youshe.mcp.mapper.UserMapper;
@@ -35,5 +36,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public List<String> selectCountBuildingUser(String buildingId) {
         return userMapper.selectCountBuildingUser(buildingId);
+    }
+
+    @Override
+    public User getUserByName(String username) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name",username);
+        User user = userMapper.selectOne(queryWrapper);
+
+        return user;
     }
 }

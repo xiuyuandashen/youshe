@@ -11,10 +11,16 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.youshe.mcp.utils.RedisUtil;
+import com.youshe.mcp.utils.captcha;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,6 +30,9 @@ import java.util.Scanner;
  * @Description:
  */
 public class test {
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @Test
     public void run() {
@@ -93,6 +102,16 @@ public class test {
 
         // 6、执行
         mpg.execute();
+    }
+
+    @Test
+    public void test2(){
+        Map<String, String> captcha = com.youshe.mcp.utils.captcha.getCaptcha();
+        String key = captcha.get("codeKey");
+        String value = captcha.get("captchaCode");
+        System.out.println(key + " " + value);
+        redisUtil.set(key, value);
+        redisUtil.expire(key,10, TimeUnit.SECONDS);
     }
 
 

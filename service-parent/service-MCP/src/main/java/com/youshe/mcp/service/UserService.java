@@ -34,4 +34,5 @@ public interface UserService extends IService<User> {
      */
     List<String> selectCountBuildingUser(String buildingId);
 
+    User getUserByName(String username);
 }

@@ -8,6 +8,7 @@ import com.youshe.mcp.mapper.AnnouncementMapper;
 import com.youshe.mcp.mapper.UserMapper;
 import com.youshe.mcp.service.AnnouncementService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +34,11 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
         if(announcementPage.getRecords().size()>0){
             announcementPage.getRecords().forEach(e->{
                 User user = userMapper.selectById(e.getAuthorId());
-                announcementVos.add(new AnnouncementVo(e.getId(),e.getTitle(),e.getContent()
-                        ,e.getAuthorId(),user.getName(),e.getIsDeleted(),e.getGmtCreate(),e.getGmtModified()));
+                AnnouncementVo announcementVo = new AnnouncementVo();
+                announcementVo.setAuthorId(user.getId());
+                announcementVo.setAuthorName(user.getName());
+                BeanUtils.copyProperties(e,announcementVo);
+                announcementVos.add(announcementVo);
             });
         }
     }
