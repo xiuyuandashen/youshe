@@ -57,7 +57,9 @@ public class BuildingController {
         buildingService.page(buildingPage);
         List<BuildingVo> idList = new ArrayList<>();
         buildingService.findPage(buildingPage,idList);
-        return ResultVo.ok().data("buildingList",idList).data("total",buildingPage.getTotal());
+        return ResultVo.ok()
+                .data("buildingList",idList)
+                .data("total",buildingPage.getTotal());
 
     }
 
@@ -68,7 +70,8 @@ public class BuildingController {
         if (id == null)  return ResultVo.error().message("无该管理员!");
         BuildingVo buildingVo = buildingService.findByBuildingManagerId(id);
 
-        return ResultVo.ok().data("buildingVo",buildingVo);
+        return ResultVo.ok()
+                .data("buildingVo",buildingVo);
     }
 
 
@@ -80,7 +83,8 @@ public class BuildingController {
         if(!save){
             throw new GlobalException(ResultCode.ERROR.getCode(),"添加失败");
         }
-        return ResultVo.ok().message("添加成功！");
+        return ResultVo.ok()
+                .message("添加成功！");
 
     }
 
@@ -91,7 +95,8 @@ public class BuildingController {
         if(!b){
             throw new GlobalException(ResultCode.ERROR.getCode(),"更新失败");
         }
-        return ResultVo.ok().message("更新成功!");
+        return ResultVo.ok()
+                .message("更新成功!");
     }
 
 
@@ -100,7 +105,8 @@ public class BuildingController {
     public ResultVo deleteById( @RequestParam("id") String id){
         boolean b = buildingService.removeById(id);
         if(!b) throw new GlobalException(ResultCode.ERROR.getCode(),"删除失败");
-        return ResultVo.ok().message("删除成功！");
+        return ResultVo.ok()
+                .message("删除成功！");
     }
 
 

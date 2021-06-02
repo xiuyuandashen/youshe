@@ -80,7 +80,8 @@ public class AnnouncementController {
     public ResultVo delete(@ApiParam(name = "id",value = "公告id") @PathVariable("id") String id){
         boolean b = announcementService.removeById(id);
         if (!b) throw new GlobalException(ResultCode.ERROR.getCode(), "删除失败！");
-        return ResultVo.ok().message("删除成功！");
+        return ResultVo.ok()
+                .message("删除成功！");
     }
 
     @ApiOperation("根据公告id查询公告信息")
@@ -92,15 +93,8 @@ public class AnnouncementController {
         BeanUtils.copyProperties(announcement,announcementVo);
         announcementVo.setAuthorId(user.getId());
         announcementVo.setAuthorName(user.getName());
-//        AnnouncementVo announcementVo = new AnnouncementVo(announcement.getId()
-//            ,announcement.getTitle()
-//            ,announcement.getContent()
-//            ,announcement.getAuthorId()
-//            ,user.getName()
-//            ,announcement.getIsDeleted()
-//            ,announcement.getGmtCreate()
-//            ,announcement.getGmtModified());
-        return ResultVo.ok().data("announcementVo",announcementVo);
+        return ResultVo.ok()
+                .data("announcementVo",announcementVo);
     }
 
     @ApiOperation("修改公告")
@@ -109,7 +103,8 @@ public class AnnouncementController {
         //if (announcement.getId() == null) throw new GlobalException(ResultCode.ERROR.getCode(), "更新失败!");
         boolean b = announcementService.updateById(announcement);
         if (!b) throw new GlobalException(ResultCode.ERROR.getCode(), "修改失败!");
-        return ResultVo.ok().message("修改成功！");
+        return ResultVo.ok()
+                .message("修改成功！");
     }
 
 }

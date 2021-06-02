@@ -3,6 +3,8 @@ package com;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
@@ -11,16 +13,17 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.youshe.mcp.entity.User;
+import com.youshe.mcp.mapper.UserMapper;
 import com.youshe.mcp.utils.RedisUtil;
 import com.youshe.mcp.utils.captcha;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.UUID;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,6 +36,9 @@ public class test {
 
     @Autowired
     RedisUtil redisUtil;
+
+    @Autowired
+    UserMapper userMapper;
 
     @Test
     public void run() {
@@ -56,7 +62,7 @@ public class test {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/GoodCommunity");
+        dsc.setUrl("jdbc:mysql://192.168.118.131:3306/youshe");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("123456");
@@ -76,7 +82,7 @@ public class test {
 
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("repairs");
+        strategy.setInclude("health_card");
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
 
@@ -112,6 +118,18 @@ public class test {
         System.out.println(key + " " + value);
         redisUtil.set(key, value);
         redisUtil.expire(key,10, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void  test3(){
+
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("name","admin");
+//        User user = userMapper.selectOne(queryWrapper);
+        List<User> users = userMapper.selectList(null);
+        System.out.println(users);
+//        System.out.println(user);
+
     }
 
 

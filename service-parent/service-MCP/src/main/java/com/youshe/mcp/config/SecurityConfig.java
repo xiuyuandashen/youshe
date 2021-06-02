@@ -63,8 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs/**"
                 )
                 .permitAll()
-                .antMatchers("/user/login",
-                        "/register","/user/captcha"
+                .antMatchers("/user/login","/user/admin/login",
+                        "/register","/user/captcha",
+                        "/mcp/user/uploadAvatar"
                        // "/mcp/announcement/findAnnouncement/**",
                        // "/mcp/announcement/**"
                 )// 对登录注册要允许匿名访问

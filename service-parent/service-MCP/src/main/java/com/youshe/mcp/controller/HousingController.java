@@ -44,21 +44,24 @@ public class HousingController {
     @GetMapping("/findById/{id}")
     public ResultVo findById(@PathVariable("id") String id){
         HousingVo housingVo = housingService.findById(id);
-        return ResultVo.ok().data("housing",housingVo);
+        return ResultVo.ok()
+                .data("housing",housingVo);
     }
 
     @ApiOperation("根据用户id查找房屋信息")
     @GetMapping("/findByUserId/{userId}")
     public ResultVo findByUserId(@PathVariable("userId") String userId){
         List<HousingVo> housingVos = housingService.findByUserId(userId);
-        return ResultVo.ok().data("housingVos",housingVos);
+        return ResultVo.ok()
+                .data("housingVos",housingVos);
     }
 
     @ApiOperation("根据房屋单元号查找房屋信息")
     @GetMapping("/findByRoomNumber")
-    public ResultVo findByRoomNumber(@RequestParam("roomNumber") String roomNumber ){
+    public ResultVo findByRoomNumber(@ApiParam(name = "roomNumber",value = "房屋单元号") @RequestParam("roomNumber") String roomNumber ){
         HousingVo housingVo = housingService.findByRoomNumber(roomNumber);
-        return ResultVo.ok().data("housingVo",housingVo);
+        return ResultVo.ok()
+                .data("housingVo",housingVo);
     }
 
 
@@ -67,7 +70,8 @@ public class HousingController {
     public ResultVo updateById(@RequestBody Housing housing){
         boolean b = housingService.updateById(housing);
         if (!b) throw new GlobalException(ResultCode.ERROR.getCode(),"更新失败");
-        return ResultVo.ok().message("更新成功");
+        return ResultVo.ok()
+                .message("更新成功");
     }
 
     @ApiOperation("逻辑删除房屋")
@@ -75,7 +79,8 @@ public class HousingController {
     public ResultVo deleteById(@PathVariable("id") String id){
         boolean b = housingService.removeById(id);
         if(!b) throw new GlobalException(ResultCode.ERROR.getCode(),"删除失败");
-        return ResultVo.ok().message("删除成功!");
+        return ResultVo.ok()
+                .message("删除成功!");
     }
 
     @ApiOperation("根据楼房管理id添加房屋")
@@ -89,15 +94,16 @@ public class HousingController {
         boolean save = housingService.save(housing);
         if(!save) throw new GlobalException(ResultCode.ERROR.getCode(),"添加房屋失败");
         System.out.println(housing);
-        return ResultVo.ok().message("添加房屋成功!");
+        return ResultVo.ok()
+                .message("添加房屋成功!");
     }
 
 
     @ApiOperation("根据管理员id查询房屋列表")
     @GetMapping("findAllByManagerId/{managerId}/{page}/{size}")
     public ResultVo findAllByManagerId(@ApiParam(name = "managerId",value = "管理员id") @PathVariable("managerId") String managerId,
-                                       @ApiParam(name = "page",value = "当前页") @RequestParam(value = "page",defaultValue = "1") int page,
-                                       @ApiParam(name = "size",value = "显示条数") @RequestParam(value = "size",defaultValue = "5") int size){
+                                       @ApiParam(name = "page",value = "当前页") @PathVariable(value = "page") int page,
+                                       @ApiParam(name = "size",value = "显示条数") @PathVariable(value = "size") int size){
         Building building = buildingService.getBuildingByManagerId(managerId);
         //System.out.println(building);
         Page<Housing> pageList = new Page<>(page,size);
@@ -106,7 +112,24 @@ public class HousingController {
         housingService.page(pageList,queryWrapper);
         List<HousingVo> list = new ArrayList<>();
         housingService.findAllPage(pageList,list);
-        return ResultVo.ok().data("list",list);
+        return ResultVo.ok()
+                .data("list",list).data("total",pageList.getTotal());
+    }
+
+    @ApiOperation("查询房屋列表")
+    @GetMapping("findAll/{page}/{size}")
+    public ResultVo findAll(
+            @ApiParam(name = "page",value = "当前页") @PathVariable(value = "page") int page,
+            @ApiParam(name = "size",value = "显示条数") @PathVariable(value = "size") int size
+    ){
+        Page<Housing> pageList = new Page<>(page,size);
+        QueryWrapper<Housing> queryWrapper = new QueryWrapper<>();
+
+        housingService.page(pageList,queryWrapper);
+        List<HousingVo> list = new ArrayList<>();
+        housingService.findAllPage(pageList,list);
+        return ResultVo.ok()
+                .data("list",list).data("total",pageList.getTotal());
     }
 
 }

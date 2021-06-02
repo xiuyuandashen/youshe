@@ -33,4 +33,6 @@ public interface UserMapper extends BaseMapper<User> {
     */
     List<String> selectCountBuildingUser(String buildingId);
 
+    User getByName(String name);
+
 }

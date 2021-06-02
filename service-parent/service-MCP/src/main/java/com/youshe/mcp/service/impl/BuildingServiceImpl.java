@@ -14,6 +14,7 @@ import com.youshe.mcp.mapper.UserMapper;
 import com.youshe.mcp.service.BuildingService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.youshe.mcp.service.HousingService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springfox.documentation.annotations.ApiIgnore;
@@ -57,9 +58,11 @@ public class BuildingServiceImpl extends ServiceImpl<BuildingMapper, Building> i
 
         // 根据楼房管理员id查询楼房管理员信息---》主要是获取名字
         User user = userMapper.selectById(building.getBuildingManagerId());
+
         BuildingVo buildingVo = new BuildingVo(building.getId(),building.getName(),
                 building.getBuildingManagerId(),user.getName(),
                 building.getIsDeleted(),building.getGmtCreate(),building.getGmtModified(),housingVos);
+
         return buildingVo;
     }
 

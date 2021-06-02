@@ -48,7 +48,7 @@ public class RepairsController {
         repairsService.page(repairsPage,queryWrapper);
         List<RepairsVo> repairsVos = new ArrayList<>();
         repairsService.findPage(repairsPage,repairsVos);
-        return ResultVo.ok().data("repairsVos",repairsVos);
+        return ResultVo.ok().data("repairsVos",repairsVos).data("total",repairsPage.getTotal());
     }
 
 
@@ -60,6 +60,7 @@ public class RepairsController {
             throw new GlobalException(ResultCode.ERROR.getCode(), "上报失败!");
         repairs.setUserId(userId);
         repairs.setAddressId(addressId);
+        System.out.println(repairs);
         boolean save = repairsService.save(repairs);
         if(!save) throw new GlobalException(ResultCode.ERROR.getCode(), "上报失败！");
         return ResultVo.ok().message("维修已上报！");
@@ -88,6 +89,25 @@ public class RepairsController {
         boolean b = repairsService.removeById(id);
         if (!b) throw new GlobalException(ResultCode.ERROR.getCode(), "删除失败！");
         return ResultVo.ok().message("删除成功！");
+    }
+
+
+    @ApiOperation("根据用户id分页按更新时间降序查询报修列表")
+    @GetMapping("find/{userId}/{page}/{size}")
+    public ResultVo findRepairsByUserId(
+            @ApiParam(name = "userId",value = "用户id") @PathVariable(value = "userId") String userId,
+            @ApiParam(name = "page",value = "当前页") @PathVariable(value = "page") int page,
+            @ApiParam(name = "size",value = "显示条数") @PathVariable(value = "size") int size
+    ){
+        Page<Repairs> repairsPage =new Page<>(page,size);
+        QueryWrapper<Repairs> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("gmt_modified");
+        queryWrapper.eq("user_id",userId);
+        repairsService.page(repairsPage,queryWrapper);
+        List<RepairsVo> repairsVos = new ArrayList<>();
+        repairsService.findPage(repairsPage,repairsVos);
+
+        return ResultVo.ok().data("repairsVos",repairsVos).data("total",repairsPage.getTotal());
     }
 
 }

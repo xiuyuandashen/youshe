@@ -10,4 +10,8 @@
         SELECT DISTINCT user_id FROM `housing`  where building_id = #{id}
     </select>
 
+    <select id="getByName" resultType="com.youshe.mcp.entity.User" parameterType="String">
+        select * from user where `name` = #{name}
+    </select>
+
 </mapper>
