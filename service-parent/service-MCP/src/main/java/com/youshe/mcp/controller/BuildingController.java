@@ -51,8 +51,8 @@ public class BuildingController {
 
     @ApiOperation("获取楼房列表")
     @GetMapping("findBuilding/{page}/{size}")
-    public ResultVo findBuilding(@ApiParam(name = "page",value = "当前页") @RequestParam(value = "page",defaultValue = "1") int page,
-                                 @ApiParam(name = "size",value = "显示条数") @RequestParam(value = "size",defaultValue = "5") int size){
+    public ResultVo findBuilding(@ApiParam(name = "page",value = "当前页") @PathVariable(value = "page") int page,
+                                 @ApiParam(name = "size",value = "显示条数") @PathVariable(value = "size") int size){
         Page<Building> buildingPage = new Page<Building>(page, size);
         buildingService.page(buildingPage);
         List<BuildingVo> idList = new ArrayList<>();

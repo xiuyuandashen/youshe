@@ -40,8 +40,8 @@ public class RepairsController {
 
     @ApiOperation("分页按更新时间降序查询报修列表")
     @GetMapping("find/{page}/{size}")
-    public ResultVo findRepairs(@ApiParam(name = "page",value = "当前页") @RequestParam(value = "page",defaultValue = "1") int page,
-                                @ApiParam(name = "size",value = "显示条数") @RequestParam(value = "size",defaultValue = "5") int size){
+    public ResultVo findRepairs(@ApiParam(name = "page",value = "当前页") @PathVariable(value = "page") int page,
+                                @ApiParam(name = "size",value = "显示条数") @PathVariable(value = "size") int size){
         Page<Repairs> repairsPage = new Page<>(page,size);
         QueryWrapper<Repairs> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("gmt_modified");

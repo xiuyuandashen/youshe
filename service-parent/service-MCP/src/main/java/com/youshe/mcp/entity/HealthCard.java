@@ -34,7 +34,7 @@ public class HealthCard implements Serializable {
     private String userId;
 
     @ApiModelProperty(value = "体温")
-    private Integer bodyTemperature;
+    private double bodyTemperature;
 
     @ApiModelProperty(value = "当前所在地")
     private String currentLocation;
