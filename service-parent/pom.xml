@@ -135,6 +135,7 @@
 <!--            <artifactId>activation</artifactId>-->
 <!--            <version>1.1.1</version>-->
 <!--        </dependency>-->
+        <!-- 阿里云oss依赖 -->
 
 
     </dependencies>

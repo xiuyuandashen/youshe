@@ -1,5 +1,5 @@
 server:
-  port: 8002
+  port: 7002
 
 spring:
   datasource:
@@ -22,9 +22,9 @@ spring:
 
   redis:
     database: 1
-    host: 120.55.51.37
+    host: 192.168.118.131
     port: 6379
-    password: feng10.10
+    password: 123456
     jedis:
       pool:
         max-active: 8

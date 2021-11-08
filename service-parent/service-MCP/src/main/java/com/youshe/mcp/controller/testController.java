@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 import sun.plugin.liveconnect.SecurityContextHelper;
@@ -42,4 +43,12 @@ public class testController {
         webSocketServer.sendTo("向客户端推送实时消息",user.getId());
         return ResultVo.ok();
     }
+
+    @GetMapping("/hello")
+    public ResultVo hello (@RequestParam("a") String a){
+        System.out.println(ResultVo.ok());
+        return ResultVo.ok();
+    }
+
+
 }

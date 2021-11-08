@@ -77,7 +77,7 @@ public class LoginController {
     public ResultVo login(@RequestBody UserForm userForm){
         System.out.println(userForm);
         String code = redisUtil.get(userForm.getCaptchaKey());
-        System.out.println(code);
+//        System.out.println(code);
         if(code == null || !code.equals(userForm.getCaptchaCode())){
             throw new GlobalException(ResultCode.ERROR.getCode(), "验证码错误或已过期!");
         }
@@ -104,7 +104,7 @@ public class LoginController {
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResultVo info(HttpServletRequest  request) {
         String token = request.getParameter("token");
-        System.out.println(token);
+//        System.out.println(token);
         String authorization = request.getHeader("Authorization");
 
         String username = jwtTokenUtil.getUserNameFromToken(authorization.substring(this.tokenHead.length()));
@@ -146,7 +146,7 @@ public class LoginController {
         Map<String, String> captcha = com.youshe.mcp.utils.captcha.getCaptcha();
         String key = captcha.get("codeKey");
         String value = captcha.get("captchaCode");
-        System.out.println(key + " " + value);
+//        System.out.println(key + " " + value);
         redisUtil.set(key, value);
         // 存活120秒
         redisUtil.expire(key,120, TimeUnit.SECONDS);
