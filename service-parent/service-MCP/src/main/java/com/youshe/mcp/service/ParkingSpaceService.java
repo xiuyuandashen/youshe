@@ -13,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ParkingSpaceService extends IService<ParkingSpace> {
 
+
+    // 解除占用车位
+    int releaseOfOccupancy(ParkingSpace parkingSpace);
 }

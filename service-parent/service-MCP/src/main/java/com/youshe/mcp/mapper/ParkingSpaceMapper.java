@@ -13,4 +13,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ParkingSpaceMapper extends BaseMapper<ParkingSpace> {
 
+
+    // 解除占用车位
+    int releaseOfOccupancy(ParkingSpace parkingSpace);
 }

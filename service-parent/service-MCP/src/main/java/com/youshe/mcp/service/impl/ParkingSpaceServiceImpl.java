@@ -17,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ParkingSpaceServiceImpl extends ServiceImpl<ParkingSpaceMapper, ParkingSpace> implements ParkingSpaceService {
 
+    @Override
+    public int releaseOfOccupancy(ParkingSpace parkingSpace) {
+        return baseMapper.releaseOfOccupancy(parkingSpace);
+    }
 }

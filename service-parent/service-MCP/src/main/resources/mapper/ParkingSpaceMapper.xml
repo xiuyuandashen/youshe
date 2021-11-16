@@ -2,4 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youshe.mcp.mapper.ParkingSpaceMapper">
 
+    <update id="releaseOfOccupancy" parameterType="com.youshe.mcp.entity.ParkingSpace" >
+        update parking_space set user_id = null ,user_name = null ,is_stop = 0 where id = #{id}
+    </update>
 </mapper>
